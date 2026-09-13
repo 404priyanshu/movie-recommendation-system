@@ -124,8 +124,7 @@ export default function Discovery() {
               [
                 ["all", "Movies & series"],
                 ["movie", "Movies"],
-              ["series", "Series"],
-              ["netflix", "Netflix Originals"],
+                ["series", "Series"],
               ] as const
             ).map(([value, label]) => (
               <button

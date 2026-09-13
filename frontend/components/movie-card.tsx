@@ -41,11 +41,7 @@ export default function MovieCard({
       <div className="movie-meta">
         <span>{String(index + 1).padStart(2, "0")}</span>
         <span>
-          {movie.netflix_original
-            ? "Netflix Original"
-            : movie.media_type === "series"
-              ? "Series"
-              : "Movie"} ·{" "}
+          {movie.media_type === "series" ? "Series" : "Movie"} ·{" "}
           {movie.year ?? "Year unknown"}
         </span>
       </div>
@@ -53,6 +49,11 @@ export default function MovieCard({
       <p className="genres">
         {movie.genres.join(" · ") || "Genres unavailable"}
       </p>
+      {(movie.platforms?.length ?? 0) > 0 && (
+        <p className="platforms">
+          Streaming on {movie.platforms.join(", ")}
+        </p>
+      )}
       <p className="description">
         {movie.overview ||
           "No synopsis available. Discover this title through the tastes you share."}
@@ -64,7 +65,7 @@ export default function MovieCard({
           target="_blank"
           rel="noreferrer"
         >
-          Series data: TVmaze ↗
+          View on TMDB ↗
         </a>
       )}
       <p className="reason">{movie.explanation}</p>

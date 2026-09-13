@@ -132,11 +132,7 @@ export default function MovieSearch({
                   <span>
                     <strong>{movie.title}</strong>
                     <small>
-                      {movie.netflix_original
-                        ? "Netflix Original"
-                        : movie.media_type === "series"
-                          ? "Series"
-                          : "Movie"} ·{" "}
+                      {movie.media_type === "series" ? "Series" : "Movie"} ·{" "}
                       {movie.year ?? "Year unknown"} ·{" "}
                       {movie.genres.join(" / ") || "Genres unavailable"}
                     </small>
