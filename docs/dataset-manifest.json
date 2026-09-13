@@ -1,0 +1,9 @@
+{
+  "source": "https://raw.githubusercontent.com/smanihwr/ml-latest-small/ba3cd91761e54faa64483456b619d1a1f4d70971/",
+  "original_source": "https://files.grouplens.org/datasets/movielens/ml-latest-small.zip",
+  "files": {
+    "movies.csv": "c47b783f23eb304413307e1bb05335e427737da20ec8d3c0e96335567dd5f3dc",
+    "links.csv": "028a4a1d17751ca9276e0e0718cfc22356350f224a996e1ec348c23274b9209d",
+    "README.txt": "63d22ac138e80fae37021797ed8e1b9424b5239dc576a137422adf783ae3f404"
+  }
+}

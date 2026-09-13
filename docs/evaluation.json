@@ -1,0 +1,1520 @@
+{
+  "catalog_size": 9742,
+  "matrix_shape": [
+    9742,
+    8914
+  ],
+  "profiles": {
+    "science_fiction": {
+      "favorites": [
+        "Interstellar",
+        "Inception"
+      ],
+      "ids": [
+        109487,
+        79132
+      ],
+      "mean_genre_jaccard": 0.7333333333333332,
+      "score_min": 0.6548985846725188,
+      "score_max": 0.6983194960848875,
+      "results": [
+        {
+          "id": 198,
+          "title": "Strange Days",
+          "year": 1995,
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6983194960848875,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Crime",
+            "Drama",
+            "Mystery",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.2910486903557892
+            },
+            {
+              "term": "mystery",
+              "contribution": 0.14315688715598737
+            },
+            {
+              "term": "crime",
+              "contribution": 0.0937809618010863
+            },
+            {
+              "term": "action",
+              "contribution": 0.07010504590514269
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.06828627857869578
+            },
+            {
+              "term": "drama",
+              "contribution": 0.031941632288186146
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Crime appears in 1 of your 2 favorites.",
+            "Drama appears in 1 of your 2 favorites.",
+            "Mystery appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Crime, Drama, Mystery, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 4887,
+          "title": "One, The",
+          "year": 2001,
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6872500278338501,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.46577685738651875
+            },
+            {
+              "term": "action",
+              "contribution": 0.11219190826359098
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.1092812621837404
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 51412,
+          "title": "Next",
+          "year": 2007,
+          "genres": [
+            "Action",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6872500278338501,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.46577685738651875
+            },
+            {
+              "term": "action",
+              "contribution": 0.11219190826359098
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.1092812621837404
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 60684,
+          "title": "Watchmen",
+          "year": 2009,
+          "genres": [
+            "Action",
+            "Drama",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6704847033533582,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Drama",
+            "Mystery",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.322797776730266
+            },
+            {
+              "term": "mystery",
+              "contribution": 0.15877317585964226
+            },
+            {
+              "term": "action",
+              "contribution": 0.07775246446939793
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.07573529665926614
+            },
+            {
+              "term": "drama",
+              "contribution": 0.03542598963478579
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Drama appears in 1 of your 2 favorites.",
+            "Mystery appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Drama, Mystery, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 67197,
+          "title": "Knowing",
+          "year": 2009,
+          "genres": [
+            "Action",
+            "Drama",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6651485959298569,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Drama",
+            "Mystery",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.3202287641874216
+            },
+            {
+              "term": "mystery",
+              "contribution": 0.15750956653623763
+            },
+            {
+              "term": "action",
+              "contribution": 0.07713366511308806
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.07513255109817674
+            },
+            {
+              "term": "drama",
+              "contribution": 0.03514404899493284
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Drama appears in 1 of your 2 favorites.",
+            "Mystery appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Drama, Mystery, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 68237,
+          "title": "Moon",
+          "year": 2009,
+          "genres": [
+            "Drama",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6641170691091095,
+          "shared_genres": [
+            "Sci-Fi",
+            "Drama",
+            "Mystery",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.36167344938193835
+            },
+            {
+              "term": "mystery",
+              "contribution": 0.17789478838469885
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.0848563650598183
+            },
+            {
+              "term": "drama",
+              "contribution": 0.03969246628265404
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Drama appears in 1 of your 2 favorites.",
+            "Mystery appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Drama, Mystery, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 57368,
+          "title": "Cloverfield",
+          "year": 2008,
+          "genres": [
+            "Action",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6598044219092541,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Mystery",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.33537592016017853
+            },
+            {
+              "term": "mystery",
+              "contribution": 0.16495993401830858
+            },
+            {
+              "term": "action",
+              "contribution": 0.0807821682673348
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.07868639946343209
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Mystery appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Mystery, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 135518,
+          "title": "Self/less",
+          "year": 2015,
+          "genres": [
+            "Action",
+            "Mystery",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6598044219092541,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Mystery",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.33537592016017853
+            },
+            {
+              "term": "mystery",
+              "contribution": 0.16495993401830858
+            },
+            {
+              "term": "action",
+              "contribution": 0.0807821682673348
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.07868639946343209
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Mystery appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Mystery, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 519,
+          "title": "RoboCop 3",
+          "year": 1993,
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6548985846725188,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.34333611867799196
+            },
+            {
+              "term": "crime",
+              "contribution": 0.11062888271826078
+            },
+            {
+              "term": "action",
+              "contribution": 0.08269954532827666
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.0805540331327836
+            },
+            {
+              "term": "drama",
+              "contribution": 0.03768000481520573
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Crime appears in 1 of your 2 favorites.",
+            "Drama appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Crime, Drama, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        },
+        {
+          "id": 2985,
+          "title": "RoboCop",
+          "year": 1987,
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama",
+            "Sci-Fi",
+            "Thriller"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6548985846725188,
+          "shared_genres": [
+            "Sci-Fi",
+            "Action",
+            "Crime",
+            "Drama",
+            "Thriller"
+          ],
+          "shared_features": [
+            {
+              "term": "scifi",
+              "contribution": 0.34333611867799196
+            },
+            {
+              "term": "crime",
+              "contribution": 0.11062888271826078
+            },
+            {
+              "term": "action",
+              "contribution": 0.08269954532827666
+            },
+            {
+              "term": "thriller",
+              "contribution": 0.0805540331327836
+            },
+            {
+              "term": "drama",
+              "contribution": 0.03768000481520573
+            }
+          ],
+          "reasons": [
+            "Sci-Fi appears in 2 of your 2 favorites.",
+            "Action appears in 1 of your 2 favorites.",
+            "Crime appears in 1 of your 2 favorites.",
+            "Drama appears in 1 of your 2 favorites.",
+            "Thriller appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Sci-Fi, Action, Crime, Drama, Thriller.",
+          "selected_titles": [
+            "Interstellar",
+            "Inception"
+          ]
+        }
+      ]
+    },
+    "animation": {
+      "favorites": [
+        "Toy Story",
+        "Finding Nemo"
+      ],
+      "ids": [
+        1,
+        6377
+      ],
+      "mean_genre_jaccard": 0.9633333333333335,
+      "score_min": 0.8203664207811711,
+      "score_max": 0.9119679323561087,
+      "results": [
+        {
+          "id": 3114,
+          "title": "Toy Story 2",
+          "year": 1999,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.9119679323561087,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.24800071274074817
+            },
+            {
+              "term": "children",
+              "contribution": 0.2322749178515286
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16128604177912748
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10560340483529476
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06663499867338765
+            },
+            {
+              "term": "toy",
+              "contribution": 0.06651229637509297
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 78499,
+          "title": "Toy Story 3",
+          "year": 2010,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.9119679323561087,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.24800071274074817
+            },
+            {
+              "term": "children",
+              "contribution": 0.2322749178515286
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16128604177912748
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10560340483529476
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06663499867338765
+            },
+            {
+              "term": "toy",
+              "contribution": 0.06651229637509297
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 45074,
+          "title": "Wild, The",
+          "year": 2006,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8587832065969913,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.26170905316703535
+            },
+            {
+              "term": "children",
+              "contribution": 0.24511400855900248
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.17020119344253387
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.11144067605786002
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.07031827537055946
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 4886,
+          "title": "Monsters, Inc.",
+          "year": 2001,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8470419005800066,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.2581309602827721
+            },
+            {
+              "term": "children",
+              "contribution": 0.24176280355006285
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.167874198362386
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10991705627782276
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06935688210696273
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 53121,
+          "title": "Shrek the Third",
+          "year": 2007,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8383624554559046,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.25548595121879075
+            },
+            {
+              "term": "children",
+              "contribution": 0.23928551525414152
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16615402974801025
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10879076127693446
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06864619795802748
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 103755,
+          "title": "Turbo",
+          "year": 2013,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.833072260688138,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.2538737959587601
+            },
+            {
+              "term": "children",
+              "contribution": 0.23777558721220485
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16510557251677815
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.1081042750055811
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06821302999481385
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 2294,
+          "title": "Antz",
+          "year": 1998,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8237020281139965,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.2510182735450757
+            },
+            {
+              "term": "children",
+              "contribution": 0.23510113427724452
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16324849758249685
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10688833942968698
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06744578327949251
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 166461,
+          "title": "Moana",
+          "year": 2016,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8237020281139965,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.2510182735450757
+            },
+            {
+              "term": "children",
+              "contribution": 0.23510113427724452
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16324849758249685
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10688833942968698
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06744578327949251
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 134853,
+          "title": "Inside Out",
+          "year": 2015,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Drama",
+            "Fantasy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.821543964499688,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy",
+            "Fantasy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.2503606165475513
+            },
+            {
+              "term": "children",
+              "contribution": 0.23448517949475103
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.16282079359404125
+            },
+            {
+              "term": "fantasy",
+              "contribution": 0.10660829661293536
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.06726907825040902
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Fantasy appears in 1 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy, Fantasy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        },
+        {
+          "id": 33615,
+          "title": "Madagascar",
+          "year": 2005,
+          "genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8203664207811711,
+          "shared_genres": [
+            "Adventure",
+            "Animation",
+            "Children",
+            "Comedy"
+          ],
+          "shared_features": [
+            {
+              "term": "animation",
+              "contribution": 0.2872810130018799
+            },
+            {
+              "term": "children",
+              "contribution": 0.2690644432343669
+            },
+            {
+              "term": "adventure",
+              "contribution": 0.186831791543308
+            },
+            {
+              "term": "comedy",
+              "contribution": 0.0771891730016162
+            }
+          ],
+          "reasons": [
+            "Adventure appears in 2 of your 2 favorites.",
+            "Animation appears in 2 of your 2 favorites.",
+            "Children appears in 2 of your 2 favorites.",
+            "Comedy appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Adventure, Animation, Children, Comedy.",
+          "selected_titles": [
+            "Toy Story",
+            "Finding Nemo"
+          ]
+        }
+      ]
+    },
+    "crime": {
+      "favorites": [
+        "Godfather, The",
+        "Goodfellas"
+      ],
+      "ids": [
+        858,
+        1213
+      ],
+      "mean_genre_jaccard": 0.9333333333333332,
+      "score_min": 0.6715123317024749,
+      "score_max": 0.8254969559292518,
+      "results": [
+        {
+          "id": 1221,
+          "title": "Godfather: Part II, The",
+          "year": 1974,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.8254969559292518,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.4644424114191042
+            },
+            {
+              "term": "godfather",
+              "contribution": 0.20286626791672457
+            },
+            {
+              "term": "drama",
+              "contribution": 0.15818827659342316
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 55272,
+          "title": "We Own the Night",
+          "year": 2007,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.7585535694190179,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5658321309155406
+            },
+            {
+              "term": "drama",
+              "contribution": 0.19272143850347723
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 59995,
+          "title": "Boy A",
+          "year": 2007,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.733771309687517,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5473461605133217
+            },
+            {
+              "term": "drama",
+              "contribution": 0.1864251491741954
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 7160,
+          "title": "Monster",
+          "year": 2003,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.7052675253272169,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.526084172311093
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17918335301612404
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 8158,
+          "title": "Rush",
+          "year": 1991,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6957092197435907,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5189542916614409
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17675492808214985
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 5901,
+          "title": "Empire",
+          "year": 2002,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6927736415549662,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.516764539310515
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17600910224445135
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 5989,
+          "title": "Catch Me If You Can",
+          "year": 2002,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6895306361067967,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5143454660145921
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17518517009220458
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 99005,
+          "title": "Fire with Fire",
+          "year": 2012,
+          "genres": [
+            "Action",
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6886698556160173,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5137033791811978
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17496647643481958
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 2587,
+          "title": "Life",
+          "year": 1999,
+          "genres": [
+            "Comedy",
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6810368116758109,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5080096197788566
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17302719189695426
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        },
+        {
+          "id": 16,
+          "title": "Casino",
+          "year": 1995,
+          "genres": [
+            "Crime",
+            "Drama"
+          ],
+          "poster_url": null,
+          "overview": null,
+          "score": 0.6715123317024749,
+          "shared_genres": [
+            "Crime",
+            "Drama"
+          ],
+          "shared_features": [
+            {
+              "term": "crime",
+              "contribution": 0.5009049708569582
+            },
+            {
+              "term": "drama",
+              "contribution": 0.17060736084551675
+            }
+          ],
+          "reasons": [
+            "Crime appears in 2 of your 2 favorites.",
+            "Drama appears in 2 of your 2 favorites.",
+            "Shared TF-IDF terms contribute to the cosine similarity with your averaged taste vector."
+          ],
+          "explanation": "Shared tastes: Crime, Drama.",
+          "selected_titles": [
+            "Godfather, The",
+            "Goodfellas"
+          ]
+        }
+      ]
+    }
+  }
+}
