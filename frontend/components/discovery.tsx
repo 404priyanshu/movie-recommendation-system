@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import type { CSSProperties } from "react";
 import { ArrowRight, Clapperboard, X, LoaderCircle } from "lucide-react";
 import MovieSearch from "./movie-search";
 import MovieCard from "./movie-card";
@@ -12,8 +13,16 @@ export default function Discovery() {
   const [loading, setLoading] = useState(false);
   const [generated, setGenerated] = useState(false);
   const [error, setError] = useState("");
+  const [leaving, setLeaving] = useState<number | null>(null);
   const pending = useRef<AbortController | null>(null);
-  useEffect(() => () => pending.current?.abort(), []);
+  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(
+    () => () => {
+      pending.current?.abort();
+      if (exitTimer.current) clearTimeout(exitTimer.current);
+    },
+    [],
+  );
   function changeSelection(next: Movie[]) {
     pending.current?.abort();
     setLoading(false);
@@ -22,6 +31,22 @@ export default function Discovery() {
     setGenerated(false);
     setError("");
   }
+  // Let the chip play its exit before it leaves the DOM; reduced-motion
+  // users skip the wait entirely.
+  function removeMovie(id: number) {
+    if (leaving !== null) return;
+    const instant =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const drop = () => {
+      setLeaving(null);
+      changeSelection(selected.filter((item) => item.id !== id));
+    };
+    if (instant) return drop();
+    setLeaving(id);
+    exitTimer.current = setTimeout(drop, 170);
+  }
+
   async function generate() {
     pending.current?.abort();
     const controller = new AbortController();
@@ -91,14 +116,10 @@ export default function Discovery() {
             </span>
             {selected.map((movie) => (
               <button
-                className="taste-chip"
+                className={`taste-chip${leaving === movie.id ? " leaving" : ""}`}
                 key={movie.id}
                 aria-label={`Remove ${movie.title}`}
-                onClick={() =>
-                  changeSelection(
-                    selected.filter((item) => item.id !== movie.id),
-                  )
-                }
+                onClick={() => removeMovie(movie.id)}
               >
                 {movie.title}{" "}
                 <small>
@@ -166,11 +187,30 @@ export default function Discovery() {
           )}
         </div>
         {loading ? (
-          <div className="empty-state" role="status">
-            <LoaderCircle size={38} className="spin" />
-            <h3>Connecting your favorites…</h3>
-            <p>Comparing your taste with movies and series.</p>
-          </div>
+          <>
+            <p className="score-note loading-note">
+              <LoaderCircle size={15} className="spin" />
+              Comparing your taste across the catalog…
+            </p>
+            <div className="movie-grid skeleton-grid" aria-hidden="true">
+              {Array.from({ length: 10 }, (_, position) => (
+                <div
+                  className="skeleton-card"
+                  key={position}
+                  style={{ "--i": position } as CSSProperties}
+                >
+                  <div className="skeleton-poster" />
+                  <div className="skeleton-line short" />
+                  <div className="skeleton-line title" />
+                  <div className="skeleton-line long" />
+                  <div className="skeleton-line" />
+                </div>
+              ))}
+            </div>
+            <p className="sr-only" role="status">
+              Connecting your favorites. Finding recommendations.
+            </p>
+          </>
         ) : generated ? (
           <>
             <p className="score-note">
