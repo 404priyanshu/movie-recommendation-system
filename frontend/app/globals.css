@@ -5,7 +5,8 @@
   --muted: #637069;
   --line: #d8dbd2;
   --lime: #d8edac;
-  --serif: Georgia, "Times New Roman", serif;
+  --serif: var(--font-display), "Bodoni MT", Didot, Georgia, serif;
+  --sans: var(--font-sans), system-ui, -apple-system, "Helvetica Neue", sans-serif;
 }
 * {
   box-sizing: border-box;
@@ -14,7 +15,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--sans);
   font-size: 15px;
 }
 a {
@@ -235,7 +236,7 @@ nav a {
   background: transparent;
   width: 100%;
   min-width: 0;
-  font: 16px var(--serif);
+  font: 16px var(--sans);
   color: var(--ink);
 }
 .primary-button {
@@ -261,11 +262,11 @@ nav a {
 }
 .taste-label {
   color: var(--muted);
-  font: 14px var(--serif);
+  font: 14px var(--sans);
   margin-right: 8px;
 }
 .taste-label small {
-  font: 10px Arial;
+  font: 10px var(--sans);
   margin-left: 5px;
 }
 .taste-chip {
@@ -276,7 +277,7 @@ nav a {
   gap: 12px;
   align-items: center;
   padding: 10px 14px;
-  font: 14px var(--serif);
+  font: 14px var(--sans);
 }
 .selection-hint {
   font-size: 12px;
@@ -808,7 +809,7 @@ footer {
   border-color: var(--ink);
 }
 .taste-chip small {
-  font: 9px Arial;
+  font: 9px var(--sans);
   text-transform: uppercase;
   opacity: 0.7;
 }
@@ -1307,4 +1308,419 @@ nav a:hover svg {
   .movie-card details::details-content {
     transition: none !important;
   }
+}
+
+/* ============================================================
+   THE DRENCHED MASTHEAD
+   Header, hero and footer commit to one saturated surface — a
+   deepened, more convicted version of the ink the brand already
+   owns. The working UI below stays on paper: drama where you
+   arrive, calm where you actually pick something.
+   ============================================================ */
+
+:root {
+  --drench: oklch(0.213 0.045 168);
+  --drench-deep: oklch(0.167 0.039 168);
+  --on-drench: oklch(0.962 0.012 95);
+  --on-drench-muted: oklch(0.802 0.028 152);
+  --lime-bright: oklch(0.885 0.153 122);
+  --drench-line: oklch(0.32 0.038 168);
+}
+
+html {
+  scrollbar-color: var(--drench-line) var(--paper);
+}
+::selection {
+  background: var(--lime-bright);
+  color: var(--drench-deep);
+}
+input {
+  caret-color: var(--ink);
+}
+
+/* --- Header ---------------------------------------------------- */
+
+.site-header {
+  background: var(--drench-deep);
+  color: var(--on-drench);
+  border-bottom: 0;
+}
+.site-header .brand svg {
+  background: var(--lime-bright);
+  color: var(--drench-deep);
+}
+.site-header nav a {
+  color: var(--on-drench-muted);
+  transition: color var(--dur) var(--ease-out-quart);
+}
+.site-header nav a:hover {
+  color: var(--on-drench);
+}
+.site-header a:focus-visible {
+  outline-color: var(--lime-bright);
+}
+
+/* --- Hero ------------------------------------------------------ */
+
+.hero {
+  background: var(--drench);
+  color: var(--on-drench);
+  min-height: min(78vh, 680px);
+  padding-block: clamp(56px, 8vw, 104px) clamp(48px, 7vw, 92px);
+  align-items: center;
+}
+.hero h1 {
+  /* em-based tracking: the old -3px hit -0.068em at the clamp floor,
+     past the point where the letters start touching. */
+  font-size: clamp(2.9rem, 7vw, 5.75rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(22px, 2.6vw, 34px);
+  color: var(--on-drench);
+}
+.hero-copy > p {
+  font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+  line-height: 1.45;
+  color: var(--on-drench-muted);
+  max-width: 30ch;
+}
+.hero-signature {
+  color: var(--on-drench-muted);
+}
+.hero-signature span {
+  background: var(--lime-bright);
+  width: 56px;
+}
+.hero ::selection {
+  background: var(--lime-bright);
+  color: var(--drench-deep);
+}
+.hero a:focus-visible,
+.hero button:focus-visible {
+  outline-color: var(--lime-bright);
+}
+
+/* Panels sit on the dark ground as lit objects, not flat stickers. */
+.hero-art {
+  height: clamp(300px, 34vw, 430px);
+}
+.art-panel {
+  height: 100%;
+  border-radius: 9px;
+  box-shadow:
+    0 2px 1px oklch(1 0 0 / 0.14) inset,
+    0 30px 55px -14px oklch(0 0 0 / 0.62);
+}
+.hero-art:hover .art-panel {
+  box-shadow:
+    0 2px 1px oklch(1 0 0 / 0.18) inset,
+    0 40px 70px -14px oklch(0 0 0 / 0.7);
+}
+
+/* --- Footer bookend -------------------------------------------- */
+
+footer {
+  background: var(--drench-deep);
+  color: var(--on-drench-muted);
+  border-top: 0;
+}
+.footer-brand {
+  color: var(--on-drench);
+}
+footer a:not(.footer-brand) {
+  color: var(--on-drench-muted);
+  transition: color var(--dur) var(--ease-out-quart);
+}
+footer a:not(.footer-brand):hover {
+  color: var(--on-drench);
+}
+footer a:focus-visible {
+  outline-color: var(--lime-bright);
+}
+
+/* --- Responsive ------------------------------------------------ */
+
+@media (max-width: 1100px) {
+  .hero {
+    min-height: min(70vh, 560px);
+  }
+  .hero-art,
+  .art-panel {
+    height: clamp(260px, 30vw, 340px);
+  }
+  .art-panel {
+    height: 100%;
+  }
+}
+@media (max-width: 650px) {
+  .hero {
+    min-height: 0;
+  }
+  .hero h1 {
+    font-size: clamp(2.75rem, 12.5vw, 3.6rem);
+    letter-spacing: -0.035em;
+  }
+  .hero-copy > p {
+    max-width: 26ch;
+  }
+  .hero-art {
+    height: 290px;
+    margin-top: 32px;
+  }
+  .art-panel {
+    height: 100%;
+  }
+}
+
+/* Give the display line room to breathe against the triptych. */
+@media (min-width: 1101px) {
+  .hero {
+    grid-template-columns: 52% 48%;
+  }
+}
+
+/* ============================================================
+   THE SCREENING ROOM
+   The results earn the same dark ground as the masthead: film
+   artwork reads as lit objects against it, the way posters are
+   actually displayed. The taste-builder above stays on paper —
+   you work in the light and watch in the dark. No new colour
+   enters here; this is the masthead's own surface, reused.
+   ============================================================ */
+
+.results-section {
+  background: var(--drench);
+  color: var(--on-drench-muted);
+  padding: clamp(44px, 5vw, 72px) 5% clamp(56px, 6vw, 88px);
+}
+.results-section .section-heading > span {
+  color: var(--lime-bright);
+  border-right-color: var(--drench-line);
+}
+.results-section .section-heading h2 {
+  color: var(--on-drench);
+}
+.results-section .results-heading > p,
+.results-section .score-note {
+  color: var(--on-drench-muted);
+}
+.results-section ::selection {
+  background: var(--lime-bright);
+  color: var(--drench-deep);
+}
+.results-section a:focus-visible,
+.results-section button:focus-visible,
+.results-section summary:focus-visible {
+  outline-color: var(--lime-bright);
+}
+
+/* Empty and loading states live on the same stage. */
+.results-section .empty-state {
+  color: var(--on-drench-muted);
+}
+.results-section .empty-state h3 {
+  color: var(--on-drench);
+}
+.results-section .empty-state svg {
+  color: var(--lime-bright);
+  opacity: 0.85;
+}
+
+/* --- The cards ------------------------------------------------- */
+
+.movie-grid {
+  gap: clamp(38px, 4vw, 54px) clamp(18px, 1.8vw, 26px);
+}
+.movie-card .poster {
+  border-radius: 7px;
+  box-shadow:
+    0 2px 1px oklch(1 0 0 / 0.13) inset,
+    0 22px 40px -12px oklch(0 0 0 / 0.66);
+}
+.movie-card:hover .poster {
+  box-shadow:
+    0 2px 1px oklch(1 0 0 / 0.18) inset,
+    0 34px 56px -12px oklch(0 0 0 / 0.75);
+}
+
+/* The rank reads as a numeral, the same serif device the section
+   headings already use, rather than 10px of tracked caption. */
+.movie-meta {
+  align-items: baseline;
+  margin-top: 19px;
+  color: var(--on-drench-muted);
+}
+.movie-meta > span:first-child {
+  font: 500 1.4rem/1 var(--serif);
+  color: var(--lime-bright);
+  letter-spacing: 0;
+}
+.movie-card h3 {
+  font-size: clamp(1.35rem, 1.5vw, 1.6rem);
+  color: var(--on-drench);
+  margin: 7px 0 10px;
+}
+.genres,
+.description {
+  color: var(--on-drench-muted);
+}
+.platforms {
+  color: var(--lime-bright);
+}
+.reason {
+  color: var(--on-drench);
+}
+.match {
+  background: var(--lime-bright);
+  color: var(--drench-deep);
+  font-size: 11px;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+/* Disclosure, on dark. */
+.movie-card details {
+  border-top-color: var(--drench-line);
+}
+.movie-card summary {
+  color: var(--on-drench);
+}
+.feature {
+  border-bottom-color: var(--drench-line);
+}
+.feature:hover {
+  background: oklch(1 0 0 / 0.05);
+}
+.explanation small {
+  color: var(--on-drench-muted);
+}
+.source-link {
+  color: var(--on-drench-muted);
+}
+.source-link:hover {
+  color: var(--lime-bright);
+}
+
+/* --- Skeletons on the dark stage -------------------------------- */
+
+.skeleton-card > * {
+  background: linear-gradient(
+    100deg,
+    oklch(0.27 0.032 168) 30%,
+    oklch(0.35 0.036 168) 48%,
+    oklch(0.27 0.032 168) 66%
+  );
+  background-size: 280% 100%;
+}
+.loading-note {
+  color: var(--on-drench-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-card > * {
+    background: oklch(0.27 0.032 168) !important;
+  }
+}
+
+/* Small-screen sizing for the cards, re-stated after the screening-room
+   block above so it isn't overridden by source order. */
+@media (max-width: 650px) {
+  .movie-grid {
+    gap: 32px 15px;
+  }
+  .movie-card h3 {
+    font-size: 1.2rem;
+    margin-top: 5px;
+  }
+  .movie-meta {
+    margin-top: 13px;
+  }
+  .movie-meta > span:first-child {
+    font-size: 1.1rem;
+  }
+  .match {
+    font-size: 9px;
+    padding: 5px 6px;
+    top: 7px;
+    right: 7px;
+    border-radius: 3px;
+  }
+}
+
+/* Keep the sprite caption clear of the match badge at every width. */
+.poster-type > span {
+  padding-right: 42%;
+}
+
+/* ============================================================
+   TYPE TUNING
+   A didone wants looser tracking than a transitional serif, and
+   light-on-dark wants one more step of weight plus a touch more
+   line height. Georgia's old fixed-pixel tracking would pinch
+   these letterforms shut.
+   ============================================================ */
+
+h1,
+h2,
+h3,
+.brand,
+.footer-brand,
+.section-heading > span,
+.movie-meta > span:first-child,
+.poster-type strong,
+.hero-copy > p,
+.learn-intro {
+  font-optical-sizing: auto;
+}
+
+.brand {
+  letter-spacing: -0.012em;
+  font-weight: 700;
+}
+.hero h1 {
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+}
+.hero-copy > p {
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.004em;
+}
+.section-heading h2 {
+  letter-spacing: -0.012em;
+}
+.section-heading > span {
+  letter-spacing: 0.01em;
+}
+
+/* Card titles sit reversed on the dark stage. */
+.movie-card h3 {
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: 0.004em;
+}
+.results-section .empty-state h3 {
+  font-weight: 500;
+  letter-spacing: 0.004em;
+}
+.results-section .empty-state p {
+  font-weight: 500;
+  letter-spacing: 0.004em;
+}
+
+.learn-page h1 {
+  letter-spacing: -0.018em;
+  line-height: 1.06;
+}
+.learn-intro {
+  font-weight: 500;
+}
+
+/* Data and labels read better with lining tabular figures. */
+.movie-meta,
+.match,
+.taste-label small,
+.feature span:last-child {
+  font-variant-numeric: tabular-nums;
 }
