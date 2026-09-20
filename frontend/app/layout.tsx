@@ -12,7 +12,7 @@ const billing = Big_Shoulders({
   subsets: ["latin"],
   variable: "--font-billing",
   display: "swap",
-  weight: ["400", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 const text = Archivo({
   subsets: ["latin"],

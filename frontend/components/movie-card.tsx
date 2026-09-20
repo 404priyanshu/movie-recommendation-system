@@ -81,7 +81,7 @@ export default function MovieCard({
                     { "--w": (feature.contribution / top).toFixed(3) } as CSSProperties
                   }
                 >
-                  {feature.term} <i>{feature.contribution.toFixed(3)}</i>
+                  {feature.term} <i>{(feature.contribution * 100).toFixed(1)}</i>
                 </span>
               ))}
             </span>
@@ -113,8 +113,14 @@ export default function MovieCard({
               ))}
             </ul>
             <small>
-              Contributions across all terms sum to the cosine score. Shown
-              here: up to six strongest terms.
+              Points shown are each term&rsquo;s share of the{" "}
+              {(movie.score * 100).toFixed(1)} score. Every term in the
+              vocabulary contributes; the {movie.shared_features.length}{" "}
+              strongest are set above, so they account for{" "}
+              {(
+                movie.shared_features.reduce((a, f) => a + f.contribution, 0) * 100
+              ).toFixed(1)}{" "}
+              of it.
             </small>
           </div>
         </details>

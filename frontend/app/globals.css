@@ -136,8 +136,8 @@ hr, .rule {
 
 .sheet {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  align-items: end;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+  align-items: center;
   gap: clamp(24px, 4vw, 64px);
   padding: clamp(40px, 6vw, 92px) 0 0 var(--gutter);
   position: relative;
@@ -149,7 +149,7 @@ hr, .rule {
   font-family: var(--billing);
   text-transform: uppercase;
   font-weight: 800;
-  font-size: clamp(3.6rem, 10.5vw, 9.5rem);
+  font-size: clamp(3rem, 8.2vw, 7.4rem);
   line-height: 0.84;
   letter-spacing: -0.005em;
   margin: 0 0 clamp(20px, 2.4vw, 32px);
@@ -165,7 +165,7 @@ hr, .rule {
   line-height: 1.55;
   color: var(--stock-dim);
   max-width: 46ch;
-  margin: 0 0 clamp(22px, 2.6vw, 34px);
+  margin: 0 0 clamp(20px, 2.2vw, 30px);
   text-wrap: pretty;
 }
 
@@ -189,36 +189,37 @@ hr, .rule {
 .sheet-art::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(97deg, var(--field) 26%, transparent 62%);
+  background: linear-gradient(97deg, var(--field) 2%, transparent 42%);
   pointer-events: none;
 }
 
 /* The billing slab: the credits under the art. Real facts only. */
 .slab {
   border-top: 1px solid var(--rule);
-  margin-top: clamp(28px, 3.5vw, 48px);
-  padding: 16px var(--gutter) 22px;
+  padding: 14px var(--gutter) 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 22px;
+  gap: 2px 14px;
   align-items: baseline;
+  max-width: 108ch;
 }
 .slab b {
   font-family: var(--billing);
   text-transform: uppercase;
   font-weight: 700;
-  font-size: clamp(13px, 1.15vw, 17px);
-  letter-spacing: 0.1em;
+  font-size: clamp(14px, 1.25vw, 19px);
+  letter-spacing: 0.01em;
   color: var(--stock);
 }
 .slab span {
   font-family: var(--billing);
   text-transform: uppercase;
-  font-size: clamp(11px, 0.95vw, 14px);
-  letter-spacing: 0.14em;
+  font-size: clamp(12px, 1.05vw, 16px);
+  letter-spacing: 0.015em;
   color: var(--stock-dim);
 }
 .slab .gold { color: var(--gold); }
+.slab .warn { color: var(--alarm); }
 
 /* ---------- Section heads ------------------------------------ */
 
@@ -231,13 +232,6 @@ hr, .rule {
   align-items: baseline;
   gap: 18px;
   margin-bottom: clamp(20px, 2.4vw, 30px);
-}
-.act-head i {
-  font-family: var(--billing);
-  font-style: normal;
-  font-size: clamp(13px, 1vw, 15px);
-  letter-spacing: 0.2em;
-  color: var(--gold);
 }
 .act-head h2 {
   font-family: var(--billing);
@@ -345,18 +339,18 @@ hr, .rule {
 }
 .cast-label b { color: var(--gold); font-weight: 700; }
 .taste-chip {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 8px 12px; border: 1px solid var(--rule); background: var(--lift-soft);
+  display: inline-flex; align-items: baseline; gap: 7px;
+  padding: 3px 0; border: 0; background: none;
+  border-bottom: 1px solid var(--gold);
   font-family: var(--billing); text-transform: uppercase;
-  font-size: 15px; letter-spacing: 0.08em;
+  font-size: 16px; letter-spacing: 0.05em; color: var(--stock);
   animation: strike-in 200ms var(--ease-strike) backwards;
   transition: background var(--mid) var(--ease), border-color var(--mid) var(--ease),
               opacity var(--fast) linear, transform var(--fast) var(--ease);
 }
-.taste-chip:hover { background: var(--lift); border-color: var(--gold); }
-.taste-chip small { font-size: 11px; letter-spacing: 0.14em; color: var(--stock-dim); }
-.taste-chip svg { color: var(--stock-dim); transition: color var(--mid) var(--ease), transform var(--mid) var(--ease); }
-.taste-chip:hover svg { color: var(--gold); transform: rotate(90deg); }
+.taste-chip:hover { color: var(--gold); text-decoration: line-through; }
+.taste-chip svg { color: var(--gold); transition: transform var(--mid) var(--ease); align-self: center; }
+.taste-chip:hover svg { transform: rotate(90deg); }
 .taste-chip.leaving { opacity: 0; transform: scale(0.82); pointer-events: none; }
 .selection-hint {
   font-family: var(--billing); text-transform: uppercase;
@@ -364,21 +358,22 @@ hr, .rule {
 }
 
 .media-filter {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 16px;
   margin-top: 16px;
   font-family: var(--billing); text-transform: uppercase;
   font-size: 13px; letter-spacing: 0.16em; color: var(--stock-dim);
 }
 .media-filter button {
-  padding: 7px 13px; background: transparent;
-  border: 1px solid var(--rule); color: var(--stock-dim);
+  padding: 3px 0; background: none; border: 0;
+  border-bottom: 1px solid transparent;
+  color: var(--stock-dim);
   font-family: var(--billing); text-transform: uppercase;
-  font-size: 13px; letter-spacing: 0.12em;
-  transition: all var(--mid) var(--ease);
+  font-size: 14px; letter-spacing: 0.08em;
+  transition: color var(--mid) var(--ease), border-color var(--mid) var(--ease);
 }
-.media-filter button:hover { border-color: var(--gold); color: var(--stock); }
+.media-filter button:hover { color: var(--stock); }
 .media-filter button[aria-pressed="true"] {
-  background: var(--stock); border-color: var(--stock); color: var(--field-deep);
+  color: var(--stock); border-bottom-color: var(--gold);
 }
 .error-message {
   margin-top: 14px; color: var(--alarm);
@@ -399,6 +394,9 @@ hr, .rule {
 }
 
 .credit {
+  /* Billing order is contractual weight: 01 is set materially larger and
+     heavier than 10, which is the grammar this whole form is derived from. */
+  --rank-scale: calc(1 - min(var(--i, 0), 9) * 0.049);
   display: grid;
   grid-template-columns: clamp(96px, 11vw, 156px) minmax(0, 1fr);
   gap: clamp(16px, 2vw, 30px);
@@ -430,21 +428,24 @@ hr, .rule {
 .credit-top { display: flex; align-items: baseline; gap: clamp(10px, 1.4vw, 20px); }
 .credit-rank {
   font-family: var(--billing);
-  font-size: clamp(1.6rem, 3vw, 2.6rem);
-  font-weight: 700; line-height: 0.9; color: var(--gold);
+  font-size: calc(clamp(1.5rem, 2.9vw, 2.6rem) * var(--rank-scale));
+  font-weight: calc(800 - min(var(--i, 0), 9) * 40);
+  line-height: 0.9; color: var(--gold);
   font-variant-numeric: tabular-nums;
 }
 .credit-top h3 {
   margin: 0;
   font-family: var(--billing); text-transform: uppercase;
-  font-weight: 700; font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: calc(800 - min(var(--i, 0), 9) * 40);
+  font-size: calc(clamp(1.45rem, 2.9vw, 2.5rem) * var(--rank-scale));
   line-height: 0.95; letter-spacing: 0.005em;
   text-wrap: balance; min-width: 0;
 }
 .credit-score {
   margin-left: auto;
   font-family: var(--billing);
-  font-size: clamp(1.3rem, 2.4vw, 2.1rem); font-weight: 700;
+  font-size: calc(clamp(1.2rem, 2.3vw, 2.1rem) * var(--rank-scale));
+  font-weight: calc(800 - min(var(--i, 0), 9) * 40);
   color: var(--gold); font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
@@ -514,7 +515,7 @@ hr, .rule {
   border-top: 1px solid var(--rule-faint);
   text-align: center;
 }
-.empty svg { color: var(--gold); margin-bottom: 16px; }
+.empty svg { display: block; margin: 0 auto 16px; color: var(--gold); }
 .empty h3 {
   margin: 0 0 10px;
   font-family: var(--billing); text-transform: uppercase;
@@ -629,7 +630,7 @@ footer a:hover { color: var(--gold); }
 @keyframes fade-in { from { opacity: 0; } }
 
 /* Superseded results decay rather than vanishing. */
-.credits.stale { opacity: 0.32; filter: saturate(0.4); transition: opacity var(--slow) var(--ease), filter var(--slow) var(--ease); }
+.credits .stale { opacity: 0.32; filter: saturate(0.4); transition: opacity var(--slow) var(--ease), filter var(--slow) var(--ease); }
 
 /* ---------- Responsive --------------------------------------- */
 
