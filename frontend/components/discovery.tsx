@@ -76,163 +76,153 @@ export default function Discovery() {
   }
   return (
     <>
-      <section className="taste-section" aria-labelledby="taste-title">
-        <div className="section-heading">
-          <span>01</span>
-          <h2 id="taste-title">Build your taste</h2>
+      <section className="act" aria-labelledby="taste-title">
+        <div className="act-head">
+          <i>Act 01</i>
+          <h2 id="taste-title">Credit your favourites</h2>
+          <p>Up to five</p>
         </div>
-        <div className="taste-controls">
-          <div className="search-row">
-            <MovieSearch
-              selected={selected}
-              onSelect={(movie) => {
-                if (
-                  selected.length < 5 &&
-                  !selected.some((item) => item.id === movie.id)
-                )
-                  changeSelection([...selected, movie]);
-              }}
-            />
-            <button
-              className="primary-button"
-              disabled={!selected.length || loading}
-              onClick={generate}
-            >
-              {loading ? (
-                <>
-                  <LoaderCircle size={18} className="spin" /> Finding your
-                  titles…
-                </>
-              ) : (
-                <>
-                  Find My Next Watch <ArrowRight size={18} />
-                </>
-              )}
-            </button>
-          </div>
-          <div className="selected-movies">
-            <span className="taste-label">
-              Your Taste <small>{selected.length}/5</small>
-            </span>
-            {selected.map((movie) => (
-              <button
-                className={`taste-chip${leaving === movie.id ? " leaving" : ""}`}
-                key={movie.id}
-                aria-label={`Remove ${movie.title}`}
-                onClick={() => removeMovie(movie.id)}
-              >
-                {movie.title}{" "}
-                <small>
-                  {movie.media_type === "series" ? "Series" : "Movie"}
-                </small>
-                <X size={14} />
-              </button>
-            ))}
-            {!selected.length && (
-              <span className="selection-hint">
-                Start with one favorite. Three to five gives us a fuller
-                picture.
-              </span>
-            )}
-          </div>
-          <div
-            className="media-filter"
-            role="group"
-            aria-label="Recommendation type"
+        <div className="search-row">
+          <MovieSearch
+            selected={selected}
+            onSelect={(movie) => {
+              if (
+                selected.length < 5 &&
+                !selected.some((item) => item.id === movie.id)
+              )
+                changeSelection([...selected, movie]);
+            }}
+          />
+          <button
+            className="primary-button"
+            disabled={!selected.length || loading}
+            onClick={generate}
           >
-            <span>Recommend:</span>
-            {(
-              [
-                ["all", "Movies & series"],
-                ["movie", "Movies"],
-                ["series", "Series"],
-              ] as const
-            ).map(([value, label]) => (
-              <button
-                key={value}
-                aria-pressed={mediaType === value}
-                onClick={() => {
-                  setMediaType(value);
-                  changeSelection(selected);
-                }}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <p className="sr-only" role="status">
-            {selected.length} titles selected.
-          </p>
-          {error && (
-            <p role="alert" className="error-message">
-              {error}
-            </p>
+            {loading ? (
+              <>
+                <LoaderCircle size={17} className="spin" /> Reading
+              </>
+            ) : (
+              <>
+                Roll credits <ArrowRight size={17} />
+              </>
+            )}
+          </button>
+        </div>
+        <div className="cast">
+          <span className="cast-label">
+            Cast <b>{selected.length}</b>/5
+          </span>
+          {selected.map((movie) => (
+            <button
+              className={`taste-chip${leaving === movie.id ? " leaving" : ""}`}
+              key={movie.id}
+              aria-label={`Remove ${movie.title}`}
+              onClick={() => removeMovie(movie.id)}
+            >
+              {movie.title}{" "}
+              <small>{movie.media_type === "series" ? "Series" : "Movie"}</small>
+              <X size={13} />
+            </button>
+          ))}
+          {!selected.length && (
+            <span className="selection-hint">
+              Start with one. Three to five reads clearest.
+            </span>
           )}
         </div>
+        <div className="media-filter" role="group" aria-label="Recommendation type">
+          <span>Bill:</span>
+          {(
+            [
+              ["all", "Movies & series"],
+              ["movie", "Movies"],
+              ["series", "Series"],
+            ] as const
+          ).map(([value, label]) => (
+            <button
+              key={value}
+              aria-pressed={mediaType === value}
+              onClick={() => {
+                setMediaType(value);
+                changeSelection(selected);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        <p className="sr-only" role="status">
+          {selected.length} titles selected.
+        </p>
+        {error && (
+          <p role="alert" className="error-message">
+            {error}
+          </p>
+        )}
       </section>
       <section
-        className="results-section"
+        className="act credits"
         aria-labelledby="results-title"
         aria-busy={loading}
       >
-        <div className="results-heading">
-          <div className="section-heading">
-            <span>02</span>
-            <h2 id="results-title">
-              {generated ? "Recommended for you" : "Your next great watch"}
-            </h2>
-          </div>
-          {generated && (
-            <p>{recommendations.length} discoveries · Ranked by your taste</p>
-          )}
+        <div className="act-head">
+          <i>Act 02</i>
+          <h2 id="results-title">
+            {generated ? "The billing" : "Your next great watch"}
+          </h2>
+          {generated && <p>{recommendations.length} credited · ranked by your taste</p>}
         </div>
+
         {loading ? (
           <>
-            <p className="score-note loading-note">
-              <LoaderCircle size={15} className="spin" />
-              Comparing your taste across the catalog…
+            <p className="loading-note">
+              <LoaderCircle size={14} className="spin" />
+              Scoring the catalog against your cast
             </p>
-            <div className="movie-grid skeleton-grid" aria-hidden="true">
-              {Array.from({ length: 10 }, (_, position) => (
+            <div aria-hidden="true">
+              {Array.from({ length: 6 }, (_, position) => (
                 <div
-                  className="skeleton-card"
+                  className="skeleton-credit"
                   key={position}
                   style={{ "--i": position } as CSSProperties}
                 >
                   <div className="skeleton-poster" />
-                  <div className="skeleton-line short" />
-                  <div className="skeleton-line title" />
-                  <div className="skeleton-line long" />
-                  <div className="skeleton-line" />
+                  <div className="skeleton-lines">
+                    <div />
+                    <div />
+                    <div />
+                    <div />
+                  </div>
                 </div>
               ))}
             </div>
             <p className="sr-only" role="status">
-              Connecting your favorites. Finding recommendations.
+              Finding recommendations.
             </p>
           </>
         ) : generated ? (
           <>
-            <p className="score-note">
-              Match is content similarity, not a rating or a prediction of
-              enjoyment. Artwork is illustrative when a poster is unavailable.
+            <p className="credit-note">
+              Match is content similarity — not a rating, and not a prediction
+              of enjoyment. Term size shows each term&rsquo;s share of the score.
+              Artwork is illustrative when a poster is unavailable.
             </p>
-            <div className="movie-grid">
-              {recommendations.map((movie, index) => (
-                <MovieCard key={movie.id} movie={movie} index={index} />
-              ))}
-            </div>
+            {recommendations.map((movie, index) => (
+              <MovieCard key={movie.id} movie={movie} index={index} />
+            ))}
             {!recommendations.length && (
-              <p className="empty-state">
-                No overlapping features found. Try adding another favorite.
-              </p>
+              <div className="empty">
+                <h3>No overlap found</h3>
+                <p>Nothing in the catalog shares enough features with this cast. Try adding another title.</p>
+              </div>
             )}
           </>
         ) : (
-          <div className="empty-state">
-            <Clapperboard size={47} strokeWidth={1.2} />
-            <h3>Great watching starts with your taste.</h3>
-            <p>Choose a few favorites above to discover what comes next.</p>
+          <div className="empty">
+            <Clapperboard size={40} strokeWidth={1.3} />
+            <h3>The billing is empty</h3>
+            <p>Credit a few favourites above and CineMatch will draw up the list.</p>
           </div>
         )}
       </section>

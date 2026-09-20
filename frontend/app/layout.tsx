@@ -1,45 +1,50 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Instrument_Sans } from "next/font/google";
+import { Big_Shoulders, Archivo } from "next/font/google";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import GuardianMark from "@/components/guardian-mark";
 import "./globals.css";
 
-// Display: a high-contrast didone for the masthead and titles.
-// UI: a plain grotesque for controls, labels and data.
-const display = Bodoni_Moda({
+// Billing: an ultra-condensed grotesque, the face a credits slab is set in.
+// Text: a normal-width grotesque. The pairing contrasts on width, the way a
+// one-sheet's title treatment contrasts with its body copy.
+const billing = Big_Shoulders({
   subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-billing",
   display: "swap",
+  weight: ["400", "700", "800"],
 });
-const sans = Instrument_Sans({
+const text = Archivo({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-text",
   display: "swap",
+  weight: ["400", "500", "700"],
 });
+
 export const metadata: Metadata = {
   title: "CineMatch — Find your next favorite watch",
   description:
     "A thoughtful movie discovery experience powered by explainable content-based recommendations.",
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang="en" className={`${billing.variable} ${text.variable}`}>
       <body>
         <a href="#main" className="skip-link">
           Skip to content
         </a>
         <header className="site-header">
           <Link href="/" className="brand">
-            <GuardianMark size={27} />
+            <GuardianMark size={30} />
             <span>CineMatch</span>
           </Link>
           <nav aria-label="Main navigation">
             <Link href="/">Discover</Link>
             <Link href="/how-it-works">
-              How it works <ArrowUpRight size={14} />
+              Production notes <ArrowUpRight size={13} />
             </Link>
           </nav>
         </header>
@@ -48,9 +53,8 @@ export default function RootLayout({
           <Link href="/" className="footer-brand">
             CineMatch
           </Link>
-          <span>
-            Content-based recommendations · TF-IDF & cosine similarity
-          </span>
+          <span>Content-based recommendations · TF-IDF &amp; cosine similarity</span>
+          <a href="https://www.themoviedb.org/">Catalog &amp; artwork: TMDB</a>
           <a href="https://www.tvmaze.com/api#licensing">
             Series data: TVmaze · CC BY-SA
           </a>
