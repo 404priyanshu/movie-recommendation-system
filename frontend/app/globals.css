@@ -786,13 +786,6 @@ footer {
     padding: 10px 3px;
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
 .media-filter {
   display: flex;
   align-items: center;
@@ -823,4 +816,495 @@ footer {
   font-size: 11px;
   text-decoration: underline;
   color: var(--muted);
+}
+
+/* ============================================================
+   MOTION
+   Editorial paper/ink identity, unchanged. Motion conveys state:
+   entrance, feedback, loading, reveal. Nothing decorative that
+   doesn't also say something. All of it opts out under
+   prefers-reduced-motion (block above, !important).
+   ============================================================ */
+
+:root {
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 130ms;
+  --dur: 210ms;
+  --dur-slow: 380ms;
+  --dur-reveal: 520ms;
+}
+
+@property --rot {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@property --lift {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --spread {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+}
+@keyframes rule-grow {
+  from {
+    width: 0;
+  }
+}
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    --lift: 30px;
+    --rot: 0deg;
+    filter: blur(7px);
+  }
+}
+@keyframes dropdown-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -7px, 0) scale(0.985);
+  }
+}
+@keyframes chip-in {
+  from {
+    opacity: 0;
+    transform: scale(0.84);
+  }
+}
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+    filter: blur(5px);
+  }
+}
+@keyframes float-soft {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+@keyframes shimmer {
+  from {
+    background-position: 190% 0;
+  }
+  to {
+    background-position: -90% 0;
+  }
+}
+
+/* --- Global interaction feedback ------------------------------ */
+
+button {
+  transition:
+    background var(--dur) var(--ease-out-quart),
+    color var(--dur) var(--ease-out-quart),
+    border-color var(--dur) var(--ease-out-quart),
+    box-shadow var(--dur) var(--ease-out-quart),
+    opacity var(--dur) var(--ease-out-quart),
+    filter var(--dur) var(--ease-out-quart),
+    transform var(--dur-fast) var(--ease-out-quart);
+}
+button:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+/* --- Header --------------------------------------------------- */
+
+.brand svg {
+  transition: transform var(--dur-slow) var(--ease-out-quart);
+}
+.brand:hover svg {
+  transform: rotate(-14deg) scale(1.06);
+}
+nav a {
+  position: relative;
+}
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur) var(--ease-out-quart);
+}
+nav a:hover::after {
+  transform: scaleX(1);
+}
+nav a svg {
+  transition: transform var(--dur) var(--ease-out-quart);
+}
+nav a:hover svg {
+  transform: translate3d(2px, -2px, 0);
+}
+
+/* --- Hero: the signature moment ------------------------------- */
+
+.hero h1 {
+  text-wrap: balance;
+  animation: rise-in 620ms var(--ease-out-quint) 40ms backwards;
+}
+.hero-copy > p {
+  text-wrap: pretty;
+  animation: rise-in 620ms var(--ease-out-quint) 140ms backwards;
+}
+.hero-signature {
+  animation: rise-in 620ms var(--ease-out-quint) 230ms backwards;
+}
+.hero-signature span {
+  animation: rule-grow 520ms var(--ease-out-expo) 430ms backwards;
+}
+
+.art-panel {
+  animation: panel-in 700ms var(--ease-out-quint) backwards;
+  transition:
+    --rot var(--dur-slow) var(--ease-out-quart),
+    --lift var(--dur-slow) var(--ease-out-quart),
+    --spread var(--dur-slow) var(--ease-out-quart),
+    box-shadow var(--dur-slow) var(--ease-out-quart);
+}
+.art-panel:nth-child(1) {
+  --rot: -8deg;
+  transform: translate3d(var(--spread), var(--lift), 0) rotate(var(--rot));
+  animation-delay: 90ms;
+}
+.art-panel:nth-child(2) {
+  --rot: 4deg;
+  transform: translate3d(var(--spread), var(--lift), 0) rotate(var(--rot));
+  animation-delay: 180ms;
+}
+.art-panel:nth-child(3) {
+  --rot: 9deg;
+  transform: translate3d(var(--spread), var(--lift), 0) rotate(var(--rot));
+  animation-delay: 270ms;
+}
+/* Hover fans the triptych open — the panels behave like real prints. */
+.hero-art:hover .art-panel {
+  box-shadow: 0 24px 34px #203b321f;
+}
+.hero-art:hover .art-panel:nth-child(1) {
+  --rot: -13deg;
+  --spread: -16px;
+  --lift: -5px;
+}
+.hero-art:hover .art-panel:nth-child(2) {
+  --rot: 2deg;
+  --lift: -14px;
+}
+.hero-art:hover .art-panel:nth-child(3) {
+  --rot: 14deg;
+  --spread: 16px;
+  --lift: -5px;
+}
+
+/* --- Search --------------------------------------------------- */
+
+.search-field {
+  transition:
+    border-color var(--dur) var(--ease-out-quart),
+    box-shadow var(--dur) var(--ease-out-quart),
+    background var(--dur) var(--ease-out-quart);
+}
+.search-field svg {
+  transition: color var(--dur) var(--ease-out-quart);
+}
+.search-field:focus-within svg {
+  color: var(--ink);
+}
+.search-dropdown {
+  transform-origin: top center;
+  animation: dropdown-in 190ms var(--ease-out-quart) backwards;
+}
+.search-dropdown button {
+  transition:
+    background var(--dur-fast) var(--ease-out-quart),
+    transform var(--dur-fast) var(--ease-out-quart);
+}
+.search-dropdown button > span,
+.search-dropdown button > svg {
+  transition:
+    transform var(--dur) var(--ease-out-quart),
+    opacity var(--dur) var(--ease-out-quart);
+}
+.search-dropdown button > svg {
+  opacity: 0.45;
+}
+.search-dropdown button.active > span,
+.search-dropdown button:hover > span {
+  transform: translate3d(3px, 0, 0);
+}
+.search-dropdown button.active > svg,
+.search-dropdown button:hover > svg {
+  opacity: 1;
+  transform: scale(1.12);
+}
+
+/* --- Taste chips ---------------------------------------------- */
+
+.taste-chip {
+  animation: chip-in 220ms var(--ease-out-quint) backwards;
+  transition:
+    background var(--dur) var(--ease-out-quart),
+    opacity var(--dur-fast) linear,
+    transform var(--dur-fast) var(--ease-out-quart);
+}
+.taste-chip:hover {
+  background: #dbe4c2;
+}
+.taste-chip svg {
+  opacity: 0.55;
+  transition:
+    opacity var(--dur) var(--ease-out-quart),
+    transform var(--dur) var(--ease-out-quart);
+}
+.taste-chip:hover svg {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+.taste-chip.leaving {
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+.selection-hint {
+  animation: rise-in 300ms var(--ease-out-quart) backwards;
+}
+
+/* --- Primary action ------------------------------------------- */
+
+.primary-button:not(:disabled):hover {
+  transform: translate3d(0, -1px, 0);
+  box-shadow: 0 8px 18px #203b3226;
+}
+.primary-button:not(:disabled):active {
+  transform: translate3d(0, 0, 0) scale(0.985);
+}
+.primary-button svg:not(.spin) {
+  transition: transform var(--dur) var(--ease-out-quart);
+}
+.primary-button:not(:disabled):hover svg:not(.spin) {
+  transform: translate3d(4px, 0, 0);
+}
+
+/* --- Results -------------------------------------------------- */
+
+.error-message {
+  animation: rise-in 260ms var(--ease-out-quart) backwards;
+}
+.results-heading > p,
+.score-note {
+  animation: rise-in 360ms var(--ease-out-quart) backwards;
+}
+.empty-state svg:not(.spin) {
+  animation: float-soft 4.5s ease-in-out infinite;
+}
+
+.movie-card {
+  animation: card-in var(--dur-reveal) var(--ease-out-quint) backwards;
+  animation-delay: calc(min(var(--i, 0), 11) * 45ms);
+}
+.movie-card .poster {
+  transition: box-shadow var(--dur-slow) var(--ease-out-quart);
+}
+.movie-card:hover .poster {
+  box-shadow: 0 18px 30px #203b3226;
+}
+.poster img {
+  transition: transform 620ms var(--ease-out-quart);
+}
+.movie-card:hover .poster img {
+  transform: scale(1.05);
+}
+.match {
+  transition: transform var(--dur) var(--ease-out-quart);
+}
+.movie-card:hover .match {
+  transform: translate3d(0, -2px, 0);
+}
+.movie-card h3 {
+  text-wrap: balance;
+}
+.movie-card summary svg {
+  transition: transform var(--dur) var(--ease-out-quart);
+}
+.movie-card details[open] summary svg {
+  transform: rotate(180deg);
+}
+.movie-card details {
+  interpolate-size: allow-keywords;
+}
+.movie-card details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size var(--dur-slow) var(--ease-out-quart),
+    content-visibility var(--dur-slow) allow-discrete;
+}
+.movie-card details[open]::details-content {
+  block-size: auto;
+}
+.feature {
+  transition: background var(--dur-fast) var(--ease-out-quart);
+}
+.feature:hover {
+  background: #eef2e6;
+}
+.source-link {
+  transition: color var(--dur) var(--ease-out-quart);
+}
+.source-link:hover {
+  color: var(--ink);
+}
+
+/* --- Loading skeletons (shares .movie-grid for responsiveness) -- */
+
+.loading-note {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.skeleton-card > * {
+  border-radius: 5px;
+  background: linear-gradient(
+    100deg,
+    #e6e9de 30%,
+    #f3f5ed 48%,
+    #e6e9de 66%
+  );
+  background-size: 280% 100%;
+  animation: shimmer 1.5s linear infinite;
+  animation-delay: calc(var(--i, 0) * -120ms);
+}
+.skeleton-poster {
+  aspect-ratio: 2/3;
+}
+.skeleton-line {
+  height: 10px;
+  margin-top: 13px;
+}
+.skeleton-line.title {
+  height: 19px;
+  margin-top: 17px;
+  width: 78%;
+}
+.skeleton-line.short {
+  width: 46%;
+}
+.skeleton-line.long {
+  width: 92%;
+}
+
+/* --- Reduced motion ------------------------------------------
+   Not a blanket kill switch. Spatial travel, blur and decorative
+   loops go; opacity, colour and state feedback stay legible so the
+   interface still confirms what it just did.
+   -------------------------------------------------------------- */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Entrances collapse to a short crossfade, in place, no stagger. */
+  .hero h1,
+  .hero-copy > p,
+  .hero-signature,
+  .art-panel,
+  .search-dropdown,
+  .taste-chip,
+  .selection-hint,
+  .movie-card,
+  .error-message,
+  .results-heading > p,
+  .score-note {
+    animation-name: fade-in !important;
+    animation-duration: 180ms !important;
+    animation-delay: 0ms !important;
+    animation-timing-function: linear !important;
+  }
+  .hero-signature span,
+  .empty-state svg:not(.spin) {
+    animation: none !important;
+  }
+
+  /* Shimmer sweep becomes a pulse that stays put. */
+  .skeleton-card > * {
+    background: #e6e9de !important;
+    animation: skeleton-pulse 1.8s ease-in-out infinite !important;
+    animation-delay: 0ms !important;
+  }
+
+  /* Nothing travels on hover, press, or exit — state still reads. */
+  *,
+  *::before,
+  *::after {
+    transition-property:
+      opacity, background-color, background, color, border-color, box-shadow,
+      filter, fill, stroke !important;
+    transition-duration: 140ms !important;
+  }
+  button:not(:disabled):active,
+  .primary-button:not(:disabled):hover,
+  .primary-button:not(:disabled):active,
+  .primary-button:not(:disabled):hover svg:not(.spin),
+  .movie-card:hover .poster img,
+  .movie-card:hover .match,
+  .taste-chip:hover svg,
+  .taste-chip.leaving,
+  .search-dropdown button.active > span,
+  .search-dropdown button:hover > span,
+  .search-dropdown button.active > svg,
+  .search-dropdown button:hover > svg,
+  .brand:hover svg,
+  nav a:hover svg {
+    transform: none !important;
+  }
+  .taste-chip.leaving {
+    opacity: 0 !important;
+  }
+  /* Keep the triptych's printed angles; just don't fan them out. */
+  .hero-art:hover .art-panel:nth-child(1) {
+    --rot: -8deg;
+    --spread: 0px;
+    --lift: 0px;
+  }
+  .hero-art:hover .art-panel:nth-child(2) {
+    --rot: 4deg;
+    --spread: 0px;
+    --lift: 0px;
+  }
+  .hero-art:hover .art-panel:nth-child(3) {
+    --rot: 9deg;
+    --spread: 0px;
+    --lift: 0px;
+  }
+  .movie-card details::details-content {
+    transition: none !important;
+  }
 }

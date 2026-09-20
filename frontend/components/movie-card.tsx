@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import type { CSSProperties } from "react";
 import { ChevronDown } from "lucide-react";
 import type { Recommendation } from "@/types/movie";
 export default function MovieCard({
@@ -12,7 +13,7 @@ export default function MovieCard({
 }) {
   const [imageFailed, setImageFailed] = useState(false);
   return (
-    <article className="movie-card">
+    <article className="movie-card" style={{ "--i": index } as CSSProperties}>
       <div className={`poster art-${index % 3}`}>
         {movie.poster_url && !imageFailed ? (
           <Image
