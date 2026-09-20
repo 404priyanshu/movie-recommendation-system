@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Instrument_Sans } from "next/font/google";
 import Link from "next/link";
-import { Film, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import GuardianMark from "@/components/guardian-mark";
 import "./globals.css";
 
 // Display: a high-contrast didone for the masthead and titles.
@@ -32,7 +33,7 @@ export default function RootLayout({
         </a>
         <header className="site-header">
           <Link href="/" className="brand">
-            <Film size={27} />
+            <GuardianMark size={27} />
             <span>CineMatch</span>
           </Link>
           <nav aria-label="Main navigation">
