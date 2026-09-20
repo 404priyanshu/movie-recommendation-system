@@ -4,11 +4,7 @@ export default function Home() {
     <main id="main">
       <section className="hero">
         <div className="hero-copy">
-          <h1>
-            Find your next
-            <br />
-            favorite watch.
-          </h1>
+          <h1>Find your next favorite watch.</h1>
           <p>
             Pick a few movies and series you love and CineMatch will learn your
             taste.
