@@ -4,6 +4,9 @@ import type { CSSProperties } from "react";
 import { ArrowRight, Clapperboard, X } from "lucide-react";
 import MovieSearch from "./movie-search";
 import MovieCard from "./movie-card";
+import HeroCube from "./hero-cube";
+import type { CharacterGender } from "./hero-cube";
+import SpotlightRail from "./spotlight-rail";
 import { recommendMovies } from "@/lib/api";
 import type { Movie, Recommendation, MediaFilter } from "@/types/movie";
 
@@ -18,6 +21,7 @@ export default function Discovery() {
   const [error, setError] = useState("");
   const [leaving, setLeaving] = useState<number | null>(null);
   const [health, setHealth] = useState<Health | null | "unreachable">(null);
+  const [characterGender, setCharacterGender] = useState<CharacterGender>("male");
   const pending = useRef<AbortController | null>(null);
   const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -28,6 +32,26 @@ export default function Discovery() {
     },
     [],
   );
+
+  useEffect(() => {
+    function syncCharacterGender() {
+      const preview = new URLSearchParams(window.location.search).get("gender");
+      const stored = window.localStorage.getItem("cinematch:profile-gender");
+      setCharacterGender(
+        preview === "female" || (preview !== "male" && stored === "female")
+          ? "female"
+          : "male",
+      );
+    }
+
+    syncCharacterGender();
+    window.addEventListener("storage", syncCharacterGender);
+    window.addEventListener("cinematch:profile-updated", syncCharacterGender);
+    return () => {
+      window.removeEventListener("storage", syncCharacterGender);
+      window.removeEventListener("cinematch:profile-updated", syncCharacterGender);
+    };
+  }, []);
 
   // The slab credits the catalog it is actually serving. A backend that
   // cannot report a real catalog is credited as demo data rather than
@@ -136,6 +160,9 @@ export default function Discovery() {
             </button>
           </div>
 
+        </div>
+
+        <div className="sheet-controls">
           <div className="cast">
             <span className="cast-label">
               Cast <b>{selected.length}</b>/5
@@ -189,15 +216,7 @@ export default function Discovery() {
           )}
         </div>
 
-        <div
-          className="sheet-art"
-          role="img"
-          aria-label="Original cinematic illustrations of space, desert, and mountains"
-        >
-          <i />
-          <i />
-          <i />
-        </div>
+        <HeroCube gender={characterGender} />
       </section>
 
       <div className="slab">
@@ -215,6 +234,19 @@ export default function Discovery() {
           </span>
         ) : null}
       </div>
+
+      {!generated && (
+        <SpotlightRail
+          selected={selected}
+          onPick={(movie) => {
+            if (
+              selected.length < 5 &&
+              !selected.some((item) => item.id === movie.id)
+            )
+              changeSelection([...selected, movie]);
+          }}
+        />
+      )}
 
       <section className="act credits" aria-labelledby="results-title" aria-busy={loading}>
         <div className="act-head">
@@ -282,10 +314,14 @@ export default function Discovery() {
             )}
           </>
         ) : (
-          <div className="empty">
+          <div className="empty empty--ready">
             <Clapperboard size={40} strokeWidth={1.3} />
-            <h3>The billing is empty</h3>
-            <p>Credit a few favourites above and CineMatch will draw up the list.</p>
+            <h3>{selected.length ? "Your cast is taking shape" : "The projector is ready"}</h3>
+            <p>
+              {selected.length
+                ? "Add another title for a sharper read, or roll the credits now."
+                : "Search above or choose a house selection to begin."}
+            </p>
           </div>
         )}
       </section>
