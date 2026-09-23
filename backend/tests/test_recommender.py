@@ -1,11 +1,12 @@
 import json
+from datetime import date
 import numpy as np
 import pandas as pd
 import pytest
 from fastapi.testclient import TestClient
 from backend.app.main import app
 from backend.app.data import normalize, content_features, SERIES_ID_OFFSET
-from backend.app.recommender import Recommender
+from backend.app.recommender import Recommender, CONTENT_WEIGHT, POPULARITY_WEIGHT, RECENCY_WEIGHT
 
 # A small, hand-built catalog standing in for a real TMDB download, so tests
 # don't depend on a live TMDB key or a downloaded catalog file.
@@ -33,7 +34,7 @@ def build_catalog(records=CATALOG) -> pd.DataFrame:
     downloaded tmdb_catalog.json file on disk."""
     catalog = pd.DataFrame.from_records(records).rename(columns={'id': 'movieId'})
     catalog['search_title'] = catalog['title'].map(normalize)
-    catalog['features'] = catalog.apply(lambda row: content_features(row.title, row.genres), axis=1)
+    catalog['features'] = catalog.apply(lambda row: content_features(row.title, row.genres, row.overview), axis=1)
     return catalog.sort_values('movieId').reset_index(drop=True)
 
 @pytest.fixture(scope='session', autouse=True)
@@ -99,6 +100,8 @@ def test_score_blends_content_popularity_and_recency(model):
     assert sum(f['contribution'] for f in result['shared_features']) <= result['content_score'] + 1e-12
     # The final score is content-dominant but not identical to raw content similarity.
     assert result['score'] != pytest.approx(result['content_score'])
+    index = model.id_to_index[result['id']]
+    assert result['score'] == pytest.approx(CONTENT_WEIGHT * content + POPULARITY_WEIGHT * model.norm_popularity[index] + RECENCY_WEIGHT * model.recency[index])
 
 def test_unknown_id(model):
     with pytest.raises(ValueError, match='Unknown'):
@@ -109,7 +112,41 @@ def test_empty_selection(model):
         model.recommend([])
 
 def test_features():
-    assert content_features('Space (Test)', ['Sci-Fi']).split() == ['scifi', 'scifi', 'scifi', 'space', 'test']
+    assert content_features('Space (Test)', ['Sci-Fi']).split() == ['scifi', 'scifi', 'scifi']
+    story = content_features('Space Quest', ['Sci-Fi'], 'A team searches across the galaxy for a missing pilot.')
+    assert 'galaxy' in story and 'quest' not in story
+    assert content_features('Any Title', ['Drama'], 'Too short') == 'drama drama drama'
+
+def test_overview_drives_story_match_and_explanation():
+    records = [
+        {'id': 10, 'title': 'Orbit One', 'genres': ['Drama'], 'overview': 'An astronaut survives alone aboard a damaged orbital station.', 'year': 2020, 'popularity': 10},
+        {'id': 11, 'title': 'Orbit Two', 'genres': ['Comedy'], 'overview': 'A comedian entertains tourists aboard a luxury cruise ship.', 'year': 2020, 'popularity': 10},
+        {'id': 12, 'title': 'The Last Signal', 'genres': ['Drama'], 'overview': 'An astronaut must survive alone aboard a damaged space station.', 'year': 2020, 'popularity': 10},
+    ]
+    result = Recommender(build_catalog(records)).recommend([10], 2)
+    assert result[0]['id'] == 12
+    assert result[0]['content_score'] > result[1]['content_score']
+    assert 'orbit' not in [feature['term'] for feature in result[0]['shared_features']]
+    assert 'title terms' not in result[0]['explanation']
+
+def test_missing_overview_uses_genres():
+    records = [
+        {'id': 1, 'title': 'One', 'genres': ['Drama'], 'overview': None, 'year': 2010, 'popularity': 1},
+        {'id': 2, 'title': 'Two', 'genres': ['Drama'], 'overview': '', 'year': 2010, 'popularity': 1},
+        {'id': 3, 'title': 'Three', 'genres': ['Comedy'], 'overview': None, 'year': 2010, 'popularity': 1},
+    ]
+    result = Recommender(build_catalog(records)).recommend([1], 2)
+    assert result[0]['id'] == 2
+    assert result[0]['content_score'] == pytest.approx(1)
+
+def test_unreleased_and_unrated_candidates_are_not_recommended():
+    records = [
+        {'id': 1, 'title': 'Favorite', 'genres': ['Drama'], 'overview': None, 'year': 2010, 'popularity': 10, 'vote_count': 1000},
+        {'id': 2, 'title': 'Released', 'genres': ['Drama'], 'overview': None, 'year': 2015, 'popularity': 10, 'vote_count': 100},
+        {'id': 3, 'title': 'Unrated', 'genres': ['Drama'], 'overview': None, 'year': 2015, 'popularity': 10, 'vote_count': 1},
+        {'id': 4, 'title': 'Future', 'genres': ['Drama'], 'overview': None, 'year': date.today().year + 1, 'popularity': 10, 'vote_count': 1000},
+    ]
+    assert [item['id'] for item in Recommender(build_catalog(records)).recommend([1])] == [2]
 
 def test_health(client):
     response = client.get('/health')

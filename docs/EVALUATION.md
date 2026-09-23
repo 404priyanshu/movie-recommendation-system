@@ -1,27 +1,17 @@
-# Evaluation: descriptive sanity checks
+# Recommendation relevance check
 
-Catalog: 9,742 movies; vector matrix: (9742, 8914).
+The fixed judgments in [`relevance_judgments.json`](relevance_judgments.json) were chosen from the locally downloaded TMDB catalog before calculating the revised scores. Each profile uses one favorite and a short list of subjectively related titles. `scripts/evaluate.py` independently reconstructs the previous title and genre model, runs the current story and genre model against the same catalog, and computes binary NDCG@10.
 
-| Profile | Mean genre Jaccard@10 | Min cosine | Max cosine |
-|---|---:|---:|---:|
-| science_fiction | 0.733 | 0.655 | 0.698 |
-| animation | 0.963 | 0.820 | 0.912 |
-| crime | 0.933 | 0.672 | 0.825 |
+The catalog used here contained 9,195 titles and was downloaded on 2026-09-13. Run `python scripts/evaluate.py` after downloading the catalog to reproduce results. Catalog refreshes and the passage of time can change rankings because popularity and recency are score inputs.
 
-Genre Jaccard is intersection / union of recommendation genres and the favorites’ genre union. Because genres are input features, this is a circular sanity check, not evidence of user satisfaction. These are three hand-picked profiles, not a representative benchmark.
+| Profile | Previous NDCG@10 | Revised NDCG@10 | Previous relevant IDs in top 10 | Revised relevant IDs in top 10 |
+|---|---:|---:|---|---|
+| space survival | 0.000 | 0.000 | none | none |
+| crime series | 0.000 | 0.000 | none | none |
+| animated family stories | 0.491 | 0.699 | 863, 10193, 301528 | 863, 10193, 301528 |
+| murder mystery | 0.469 | 0.469 | 661374 | 661374 |
+| **Mean** | **0.240** | **0.292** | | |
 
-## Actual example
+The mean increased by **0.052**, but the gain came from one profile. This is a small, hand-selected diagnostic and does not show a general or statistically reliable improvement. In particular, single-favorite plot summaries still miss semantically related titles that use different words. The current model also prefers titles with at least 100 TMDB votes and excludes future release years; these guardrails remove sparse catalog entries but can hide worthwhile niche titles.
 
-Favorites: Interstellar, Inception; IDs: [109487, 79132].
-
-- Strange Days (1995): 0.698319 cosine; shared genres: Sci-Fi, Action, Crime, Drama, Mystery, Thriller. Terms: scifi=0.291049, mystery=0.143157, crime=0.093781, action=0.070105, thriller=0.068286, drama=0.031942
-- One, The (2001): 0.687250 cosine; shared genres: Sci-Fi, Action, Thriller. Terms: scifi=0.465777, action=0.112192, thriller=0.109281
-- Next (2007): 0.687250 cosine; shared genres: Sci-Fi, Action, Thriller. Terms: scifi=0.465777, action=0.112192, thriller=0.109281
-
-## What the inspection taught us
-
-An initial version treated IMAX as a genre. Its rarity made it dominate blockbuster matches. We excluded this presentation format from content features. This is feature engineering informed by qualitative inspection, not a statistically validated improvement.
-
-Title vocabulary can privilege sequels and odd lexical matches; genre metadata misses tone, direction and quality. A richer corpus and blind human judgments would be the next quality checks. No held-out precision, recall, or accuracy is claimed. The notebook plots the full candidate score distribution, which is more informative than only looking at the ten winners.
-
-Regenerate with `python scripts/evaluate.py`. Full machine-readable output: `evaluation.json`.
+The executed notebook and its original examples document the older MovieLens model. They are retained as a historical learning artifact and are not an evaluation of the live TMDB application.

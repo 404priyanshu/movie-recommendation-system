@@ -33,7 +33,7 @@ class RecommendRequest(BaseModel):
 
 class RecommendResponse(BaseModel):
     recommendations: list[Recommendation]
-    model: str = 'Content similarity (TF-IDF + cosine) blended with popularity/recency'
+    model: str = 'Story and genre TF-IDF cosine similarity (85%) + popularity (10%) + recency (5%)'
 
 class Health(BaseModel):
     status: str

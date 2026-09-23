@@ -34,9 +34,9 @@ export default function MovieCard({
         )}
         <span
           className="match"
-          title="Cosine similarity, not a probability of enjoyment"
+          title="Ranking score: 85% story and genre similarity, 10% popularity, 5% recency. Not a probability of enjoyment."
         >
-          {(movie.score * 100).toFixed(1)}% match
+          {(movie.score * 100).toFixed(1)} ranking score
         </span>
       </div>
       <div className="movie-meta">
@@ -81,7 +81,7 @@ export default function MovieCard({
               <li key={reason}>{reason}</li>
             ))}
           </ul>
-          <p>Top shared terms and their contributions:</p>
+          <p>Top shared story and genre terms contributing to the content score ({(movie.content_score * 100).toFixed(1)}%):</p>
           {movie.shared_features.map((feature) => (
             <div className="feature" key={feature.term}>
               <span>{feature.term}</span>

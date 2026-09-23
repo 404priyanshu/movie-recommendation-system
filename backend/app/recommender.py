@@ -10,10 +10,11 @@ from sklearn.metrics.pairwise import cosine_similarity
 from .data import normalize
 
 # Taste match dominates the score; popularity and recency only nudge ranking.
-CONTENT_WEIGHT = 0.7
-POPULARITY_WEIGHT = 0.15
-RECENCY_WEIGHT = 0.15
+CONTENT_WEIGHT = 0.85
+POPULARITY_WEIGHT = 0.10
+RECENCY_WEIGHT = 0.05
 RECENCY_HALF_LIFE_YEARS = 6  # A title this old keeps half its recency credit.
+MIN_CANDIDATE_VOTES = 100
 
 class Recommender:
     def __init__(self, movies: pd.DataFrame):
@@ -25,12 +26,19 @@ class Recommender:
         self.vectorizer = TfidfVectorizer(stop_words='english', strip_accents='unicode', dtype=np.float64)
         self.matrix = self.vectorizer.fit_transform(movies.features)
         self.terms = self.vectorizer.get_feature_names_out()
-        popularity = movies.popularity.astype(float).clip(lower=0)
+        popularity = np.log1p(movies.popularity.astype(float).clip(lower=0))
         peak = popularity.max()
         self.norm_popularity = (popularity / peak).to_numpy() if peak > 0 else np.zeros(len(movies))
         current_year = date.today().year
         age_years = (current_year - movies.year.fillna(current_year - 100)).clip(lower=0)
         self.recency = np.exp(-age_years.to_numpy() * np.log(2) / RECENCY_HALF_LIFE_YEARS)
+        # A sparse recent TMDB listing can have attractive keywords but no
+        # evidence that viewers can actually watch it yet. Keep such titles
+        # searchable/selectable while returning established released results.
+        self.eligible = np.ones(len(movies), dtype=bool)
+        if 'vote_count' in movies:
+            self.eligible &= movies.vote_count.fillna(0).astype(float).to_numpy() >= MIN_CANDIDATE_VOTES
+        self.eligible &= movies.year.fillna(current_year).to_numpy() <= current_year
 
     def movie(self, index: int) -> dict:
         row = self.movies.iloc[index]
@@ -81,24 +89,26 @@ class Recommender:
         for index in ranked:
             if blended[index] <= 0 or len(results) >= limit:
                 break
+            if not self.eligible[index]:
+                continue
             item = self.movie(int(index))
             if media_type in ('movie', 'series') and item['media_type'] != media_type:
                 continue
             overlap = sorted(set(item['genres']) & genre_counts.keys(), key=lambda g: (-genre_counts[g], g))
-            # Per-term products sum to the content (cosine) score, which is
-            # 70% of the final blended score. These are faithful local
-            # explanations of the taste-matching part of the ranking.
+            # All per-term products sum to the content score. The API shows
+            # the six largest contributions, rather than implying those six
+            # alone reconstruct the full score.
             contributions = self.matrix[index].multiply(taste_unit).tocsr()
             ordered = sorted(zip(contributions.indices, contributions.data), key=lambda pair: (-pair[1], pair[0]))
             features = [{'term': str(self.terms[j]), 'contribution': float(v)} for j, v in ordered if v > 0][:6]
             reasons = [f'{g} appears in {genre_counts[g]} of your {len(ids)} favorites.' for g in overlap]
-            reasons.append('Shared TF-IDF terms drive the taste-similarity part of the score.')
+            reasons.append('Shared plot and genre terms drive the content-similarity score (85% of the ranking score).')
             if self.norm_popularity[index] > 0.4:
                 reasons.append('Currently popular, which gives it a small ranking boost.')
             if self.recency[index] > 0.5:
                 reasons.append('A recent release, which gives it a small ranking boost.')
             results.append({**item, 'score': float(blended[index]), 'content_score': float(content_scores[index]),
                             'shared_genres': overlap, 'shared_features': features, 'reasons': reasons,
-                            'explanation': 'Shared tastes: ' + ', '.join(overlap) + '.' if overlap else 'Connected through shared title terms.',
+                            'explanation': 'Shared genres: ' + ', '.join(overlap) + '.' if overlap else ('Connected through shared plot terms.' if features else 'Ranked by popularity and recency; no shared story terms.'),
                             'selected_titles': [self.movies.iloc[i].title for i in indices]})
         return results
