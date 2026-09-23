@@ -1,0 +1,9 @@
+{
+  "description": "Small subjective relevance set, fixed before scoring the revised model. IDs refer to the TMDB catalog downloaded on 2026-09-13. This is a diagnostic, not a representative user study.",
+  "profiles": [
+    {"name": "space survival", "favorites": [157336], "relevant": [286217, 17431, 329865, 62]},
+    {"name": "crime series", "favorites": [1000001396], "relevant": [1000060059, 1000069740, 1000063351, 1000001438]},
+    {"name": "animated family stories", "favorites": [862], "relevant": [863, 10193, 301528, 150540, 12]},
+    {"name": "murder mystery", "favorites": [546554], "relevant": [661374, 392044, 505026]}
+  ]
+}

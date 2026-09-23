@@ -1,6 +1,6 @@
 # CineMatch — Movie & Series Recommendation System
 
-**Find your next favorite watch.** An explainable, content-based movie discovery website built with Next.js, FastAPI and scikit-learn. Choose up to five favorites and discover ten movies ranked by their actual similarity to your combined taste.
+**Find your next favorite watch.** An explainable, content-based movie discovery website built with Next.js, FastAPI and scikit-learn. Choose up to five favorites and discover up to ten movies or series ranked primarily by story and genre similarity.
 
 CineMatch is a beginner-friendly ML portfolio project: the recommender is small enough to study, explanations reflect the real score calculation, and an executed notebook documents the learning process. No LLM generates recommendations.
 
@@ -9,7 +9,7 @@ CineMatch is a beginner-friendly ML portfolio project: the recommender is small 
 Local app: **http://127.0.0.1:3000** · Interactive API docs: **http://127.0.0.1:8000/docs**. No public deployment is configured.
 
 ![CineMatch discovery screen](docs/screenshot-desktop.png)
-![Recommendations with actual cosine scores](docs/screenshot-results.png)
+![Recommendations with ranked results](docs/screenshot-results.png)
 
 <details><summary>Mobile screenshot</summary>
 
@@ -25,7 +25,7 @@ Search and select both movies and TV series. Choose **Movies & series**, **Movie
 
 **v2: the catalog is now live TMDB data, not a 2018 snapshot.** The original MovieLens+TVmaze pipeline (frozen at 2018, skewed toward obscure titles with no popularity signal) has been fully replaced by [`scripts/download_tmdb.py`](scripts/download_tmdb.py), which pulls popular, top-rated, and recently-released movies and TV shows straight from [TMDB](https://www.themoviedb.org/). This needs a free TMDB API key (see below) — get one at [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api). Series use a separate numeric namespace (`1,000,000,000 + TMDB TV id`) so they can never collide with movie IDs; movies keep their raw TMDB id.
 
-Ranking now blends **content similarity (70%)** with **current popularity (15%)** and **recency (15%, exponential decay with a 6-year half-life)** — so two equally genre-matched titles will favor the one that's actually popular right now and/or recently released, instead of an arbitrary decades-old title winning purely because it shares genre words. The raw content-only score is still exposed as `content_score` for transparency, and every result's `shared_features` still sum to that content score exactly, not the final blended one.
+Ranking blends **story and genre similarity (85%)** with **normalized popularity (10%)** and **recency (5%, exponential decay with a 6-year half-life)**. The raw similarity remains available as `content_score`. `shared_features` lists the six strongest positive term contributions, so it is a partial view of that score. Candidates with fewer than 100 TMDB votes or a future release year are excluded from results, while remaining searchable and selectable.
 
 Each of the (typically ten) titles actually returned by a request also gets a live, no-extra-cost lookup of **real streaming platforms** (`platforms`, e.g. `["Netflix", "Amazon Prime Video"]`) via TMDB's `watch/providers` endpoint, restricted to subscription ("flatrate") availability in the US region. This is a per-request lookup on the small result set, not baked into the whole catalog, so it's fast and stays current — TMDB's data reflects today's actual availability, not a fixed history.
 
@@ -33,7 +33,7 @@ The old curated "Netflix Originals" filter (based on a hand-picked title list an
 
 `GET /titles/search?q=breaking` (with `/movies/search` as a compatibility alias) and `POST /recommend` (`media_type`: `all`, `movie`, `series`) both use TMDB-sourced catalog IDs now — always use IDs returned by search. Health reports movies, series and total titles from the live catalog.
 
-**Learning baseline:** the notebook, evaluation report and the numerical walkthrough further below were built against the original 2018 MovieLens-only model and are preserved as a historical/pedagogical artifact — they no longer reflect the live app's catalog or scoring, since that catalog and the ranking formula have both changed.
+**Learning baseline:** the notebook and numerical walkthrough below document the original MovieLens-only model. The current TMDB model has a separate, small relevance comparison in [`docs/EVALUATION.md`](docs/EVALUATION.md).
 
 ## Features
 
@@ -44,7 +44,7 @@ The old curated "Netflix Originals" filter (based on a hand-picked title list an
 - Live "streaming on Netflix/Prime/etc." tags per result, alongside genre overlaps and per-term score contributions in expandable explanations.
 - Responsive editorial interface, original cinematic genre artwork, and accessible loading/error states.
 - Real TMDB posters/synopses baked into the catalog at download time — no key needed at request time for artwork, only for the offline refresh and live platform lookups.
-- `/how-it-works` educational page, executed notebook, learning guide and descriptive evaluation (documenting the original, now-superseded, MovieLens-only model).
+- `/how-it-works` educational page, a current relevance check, and an executed notebook documenting the older MovieLens model.
 
 ## ML concepts and pipeline
 
@@ -60,9 +60,9 @@ flowchart LR
   H --> I[Top N and term contributions]
 ```
 
-Preprocessing normalizes punctuation/case and removes nothing content-bearing; genres are repeated three times before vectorization to emphasize them over incidental title words. This weighting is an explicit initial design choice, not an optimized result.
+Preprocessing normalizes punctuation/case. Genres are repeated three times and combined with plot overviews; title words are omitted from similarity. Missing or very short overviews fall back to genres. This weighting is a design choice, not an optimized result.
 
-TF-IDF uses English stop words, Unicode accent stripping, smoothed IDF and L2 normalization. Averaging selected rows creates the taste vector; comparing only this profile to the catalog avoids a quadratic all-pairs matrix. The blended score is `0.7 × cosine + 0.15 × normalized popularity + 0.15 × recency`, clipped to `[0, 1]`; the constants live in [`recommender.py`](backend/app/recommender.py).
+TF-IDF uses English stop words, Unicode accent stripping, smoothed IDF and L2 normalization. Averaging selected rows creates the taste vector; comparing only this profile to the catalog avoids a quadratic all-pairs matrix. The blended score is `0.85 × cosine + 0.10 × log-normalized popularity + 0.05 × recency`, clipped to `[0, 1]`; the constants live in [`recommender.py`](backend/app/recommender.py).
 
 ## Architecture and technology
 
@@ -130,7 +130,7 @@ Without a key, the app still runs against whatever catalog was last downloaded, 
 
 Movie and series metadata, posters, and streaming-platform info come from [TMDB](https://www.themoviedb.org/) via its public API — genres, overviews, release dates, popularity/vote scores, and `poster_path` images are pulled directly by `scripts/download_tmdb.py` at download time (see `backend/data/tmdb-manifest.json` for the source URLs and download timestamp of the last refresh). Data terms are separate from application code; review [TMDB's API terms](https://www.themoviedb.org/documentation/api/terms-of-use) before a public deployment.
 
-The original [MovieLens latest-small](https://grouplens.org/datasets/movielens/latest/) dataset (9,742 movies, frozen in 2018) and TVmaze's series API powered v1 of this project. They're no longer used by the running app — `scripts/download_data.py` and `scripts/download_series.py` are kept for historical reference only, since the notebook and evaluation report still document that original model.
+The original [MovieLens latest-small](https://grouplens.org/datasets/movielens/latest/) dataset (9,742 movies, frozen in 2018) and TVmaze's series API powered v1 of this project. They're no longer used by the running app — `scripts/download_data.py` and `scripts/download_series.py` are kept for historical reference only, since the notebook still documents that original model.
 
 The triptych in `frontend/public/art/cinematic-triptych.png` is original generated genre artwork, not an official film poster. Its prompt and the UI concept are documented in `docs/DESIGN.md`. Generated art is separate from the deterministic recommendation engine.
 
@@ -152,16 +152,16 @@ curl -X POST http://127.0.0.1:8000/recommend \
   -d '{"movie_ids":[872585],"limit":10}'
 ```
 
-The response wraps `recommendations` and `model`. Each result includes `id`, `media_type`, `title`, `year`, `genres`, nullable `poster_url` and `overview`, `platforms` (live streaming providers, empty without a TMDB key or if none found), the blended `score` and the raw `content_score`, `shared_genres`, `shared_features` (term/contribution pairs that sum to `content_score`), `reasons`, `explanation`, and `selected_titles`. FastAPI’s `/docs` shows the complete generated schema.
+The response wraps `recommendations` and `model`. Each result includes `id`, `media_type`, `title`, `year`, `genres`, nullable `poster_url` and `overview`, `platforms` (live streaming providers, empty without a TMDB key or if none found), the blended `score` and the raw `content_score`, `shared_genres`, `shared_features` (up to six strongest term/contribution pairs from `content_score`), `reasons`, `explanation`, and `selected_titles`. FastAPI’s `/docs` shows the complete generated schema.
 
 ## Actual recommendation example
 
-Recommending from **Oppenheimer (2023)** currently surfaces recent, well-matched dramas from the last couple of years, each tagged with real platforms like `["Netflix"]` or `["Amazon Prime Video", ...]` pulled live from TMDB — since the catalog is refreshed by re-running `scripts/download_tmdb.py`, exact titles and scores shift over time by design (that's the fix for the old frozen-2018 behavior). Every result's `shared_features` still sum exactly to its `content_score`, so the taste-matching part of the ranking stays fully reconstructible; `score` additionally folds in a popularity/recency boost. Neither figure is a predicted rating or probability of enjoyment.
+Recommending from **Oppenheimer (2023)** currently surfaces recent, well-matched dramas from the last couple of years, each tagged with real platforms like `["Netflix"]` or `["Amazon Prime Video", ...]` pulled live from TMDB — since the catalog is refreshed by re-running `scripts/download_tmdb.py`, exact titles and scores shift over time by design (that's the fix for the old frozen-2018 behavior). The displayed `shared_features` are the six strongest contributors to `content_score`, so their sum is at most that score; `score` additionally folds in a popularity/recency boost. Neither figure is a predicted rating or probability of enjoyment.
 
-See [LEARNING.md](LEARNING.md) for the numerical walkthrough and [evaluation](docs/EVALUATION.md) for multiple profiles and limitations. Regenerate with:
+See [LEARNING.md](LEARNING.md) for the historical numerical walkthrough and [evaluation](docs/EVALUATION.md) for the current model comparison and limitations. Regenerate with:
 
 ```bash
-python scripts/evaluate.py
+python scripts/evaluate.py  # requires the locally downloaded TMDB catalog
 ```
 
 ## Notebook
@@ -206,7 +206,7 @@ LEARNING.md            Beginner guide and interview preparation
 
 ## Limitations and future versions
 
-Content similarity can create a similarity bubble. Movies need metadata, the catalog is dated, and genres/titles miss tone, acting and quality. Rare terms and sequels may dominate; equal genre vectors can tie. The system does not learn from other users or store preferences. Genre overlap is a circular sanity check, not independent accuracy; there is no held-out relevance benchmark or claim of user satisfaction.
+Content similarity can create a similarity bubble. Plot summaries are short, inconsistent, and often miss tone, acting, and quality; shared words are not the same as shared meaning. The system does not learn from other users or store preferences. The fixed relevance judgments in `docs/relevance_judgments.json` are a small subjective diagnostic, not a held-out user study or evidence of general satisfaction.
 
 - **V2:** Collaborative filtering using MovieLens ratings, with a proper held-out evaluation.
 - **V3:** A hybrid recommender combining content and collaborative scores, calibrated against relevance judgments.

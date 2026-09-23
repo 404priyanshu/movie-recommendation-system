@@ -3,11 +3,11 @@ import { ArrowRight } from "lucide-react";
 const steps = [
   [
     "Movie & series metadata",
-    "We combine MovieLens movies with a cached TVmaze series catalog using titles and genres. TVmaze Science-Fiction maps to Sci-Fi so both sources share a feature. Every movie has a stable ID. Ratings are not used in this version, and optional TMDB posters and synopses are display information only.",
+    "We load movies and series from a TMDB catalog. Genres and plot overviews describe story content; titles are used for search and display, not similarity. Ratings are not used in this version.",
   ],
   [
     "Text preparation",
-    "Remove the release year from the title, lowercase text, and clean punctuation. Drop IMAX because it is a format, not story content. Sci-Fi becomes scifi, so it stays one feature. We repeat each genre three times to give genre overlap more influence than incidental title words.",
+    "Lowercase and clean genre and overview text. Sci-Fi becomes scifi, so it stays one feature. Repeat each genre three times to keep genre overlap meaningful. Titles with missing or very short overviews use genres alone.",
   ],
   [
     "TF-IDF vectorization",
@@ -19,11 +19,11 @@ const steps = [
   ],
   [
     "Cosine similarity",
-    "Compare the direction of the taste vector to each movie vector. A score near one means they point in a similar direction. Zero means they share no weighted terms. A match percentage is this score multiplied by 100, not a probability that you will like the movie.",
+    "Compare the direction of the taste vector to each title vector. The resulting content score measures shared weighted story and genre terms. It is not a probability that you will like the title.",
   ],
   [
     "Top recommendations",
-    "Exclude your selected movies, sort scores from highest to lowest, and return up to ten positive matches. Ties are resolved by movie ID. The explanation lists overlapping genres and the actual term contributions to your score.",
+    "Blend content similarity (85%) with normalized popularity (10%) and recency (5%). Exclude selected titles and return up to ten results. Ties are resolved by catalog ID. Explanations list overlapping genres and the strongest term contributions to the content score.",
   ],
 ];
 export default function HowItWorks() {
@@ -90,7 +90,7 @@ export default function HowItWorks() {
           These simplified count vectors share two terms. Their cosine
           similarity is 2 ÷ (√3 × √3) ≈ 0.667. The real application uses TF-IDF
           weights instead of these counts, so its scores will differ. “Space” is
-          illustrative here; MovieLens has no plot descriptions in our model.
+          illustrative here; the live model also includes TMDB plot overviews.
         </p>
       </section>
       <p className="learn-bottom">
@@ -105,12 +105,12 @@ export default function HowItWorks() {
       <p className="learn-bottom">
         Data:{" "}
         <a
-          href="https://grouplens.org/datasets/movielens/latest/"
+          href="https://www.themoviedb.org/"
           className="underline"
         >
-          GroupLens MovieLens
+          TMDB
         </a>
-        . Optional imagery and synopses: TMDB. This product uses the TMDB API
+        . Metadata, imagery, and synopses: TMDB. This product uses the TMDB API
         but is not endorsed or certified by TMDB.
       </p>
     </main>
